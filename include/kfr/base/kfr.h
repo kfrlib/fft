@@ -33,7 +33,7 @@
 #endif
 
 #ifdef CID_MSVC_ATTRIBUTES
-#define KFR_GNU_ATTRIBUTES CID_MSVC_ATTRIBUTES
+#define KFR_MSVC_ATTRIBUTES CID_MSVC_ATTRIBUTES
 #endif
 
 #ifdef CID_ARCH_X64
@@ -57,11 +57,11 @@ using ::cid::arraysize;
 }
 #endif
 
-#define KFR_VERSION_STRING "0.9.0"
+#define KFR_VERSION_STRING "0.9.1"
 #define KFR_VERSION_MAJOR 0
 #define KFR_VERSION_MINOR 9
-#define KFR_VERSION_BUILD 0
-#define KFR_VERSION 900
+#define KFR_VERSION_BUILD 1
+#define KFR_VERSION 901
 
 #ifdef __cplusplus
 namespace kfr
@@ -112,12 +112,10 @@ constexpr int version                 = KFR_VERSION;
 #define KFR_CPU_NAME_sse3 "sse3"
 #define KFR_CPU_NAME_sse2 "sse2"
 
-#if __has_attribute(target)
 #define KFR_USE_CPU(arch) __attribute__((target(KFR_CPU_NAME_##arch)))
+
 #else
 #define KFR_USE_CPU(arch)
-#endif
-
 #endif
 
 #if defined(KFR_GNU_ATTRIBUTES)

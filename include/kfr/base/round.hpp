@@ -134,6 +134,11 @@ struct in_round<cpu_t::sse2>
     KFR_HANDLE_ALL(round)
     KFR_HANDLE_ALL(trunc)
     KFR_HANDLE_ALL(fract)
+    KFR_HANDLE_SCALAR(floor)
+    KFR_HANDLE_SCALAR(ceil)
+    KFR_HANDLE_SCALAR(round)
+    KFR_HANDLE_SCALAR(trunc)
+    KFR_HANDLE_SCALAR(fract)
     KFR_SPEC_FN(in_round, floor)
     KFR_SPEC_FN(in_round, ceil)
     KFR_SPEC_FN(in_round, round)
@@ -162,6 +167,11 @@ struct in_round<cpu_t::sse41> : in_round<cpu_t::sse2>
     KFR_HANDLE_ALL(round)
     KFR_HANDLE_ALL(trunc)
     KFR_HANDLE_ALL(fract)
+    KFR_HANDLE_SCALAR(floor)
+    KFR_HANDLE_SCALAR(ceil)
+    KFR_HANDLE_SCALAR(round)
+    KFR_HANDLE_SCALAR(trunc)
+    KFR_HANDLE_SCALAR(fract)
     KFR_SPEC_FN(in_round, floor)
     KFR_SPEC_FN(in_round, ceil)
     KFR_SPEC_FN(in_round, round)
@@ -195,6 +205,11 @@ struct in_round<cpu_t::avx1> : in_round<cpu_t::sse41>
     KFR_HANDLE_ALL(round)
     KFR_HANDLE_ALL(trunc)
     KFR_HANDLE_ALL(fract)
+    KFR_HANDLE_SCALAR(floor)
+    KFR_HANDLE_SCALAR(ceil)
+    KFR_HANDLE_SCALAR(round)
+    KFR_HANDLE_SCALAR(trunc)
+    KFR_HANDLE_SCALAR(fract)
     KFR_SPEC_FN(in_round, floor)
     KFR_SPEC_FN(in_round, ceil)
     KFR_SPEC_FN(in_round, round)
@@ -224,14 +239,12 @@ namespace native
 {
 using fn_floor = internal::in_round<>::fn_floor;
 template <typename T1, KFR_ENABLE_IF(is_numeric<T1>::value)>
-
 KFR_INTRIN ftype<T1> floor(const T1& x)
 {
     return internal::in_round<>::floor(x);
 }
 
 template <typename E1, KFR_ENABLE_IF(is_input_expression<E1>::value)>
-
 KFR_INTRIN expr_func<fn_floor, E1> floor(E1&& x)
 {
     return { fn_floor(), std::forward<E1>(x) };
@@ -239,14 +252,12 @@ KFR_INTRIN expr_func<fn_floor, E1> floor(E1&& x)
 
 using fn_ceil = internal::in_round<>::fn_ceil;
 template <typename T1, KFR_ENABLE_IF(is_numeric<T1>::value)>
-
 KFR_INTRIN ftype<T1> ceil(const T1& x)
 {
     return internal::in_round<>::ceil(x);
 }
 
 template <typename E1, KFR_ENABLE_IF(is_input_expression<E1>::value)>
-
 KFR_INTRIN expr_func<fn_ceil, E1> ceil(E1&& x)
 {
     return { fn_ceil(), std::forward<E1>(x) };
@@ -254,14 +265,12 @@ KFR_INTRIN expr_func<fn_ceil, E1> ceil(E1&& x)
 
 using fn_round = internal::in_round<>::fn_round;
 template <typename T1, KFR_ENABLE_IF(is_numeric<T1>::value)>
-
 KFR_INTRIN ftype<T1> round(const T1& x)
 {
     return internal::in_round<>::round(x);
 }
 
 template <typename E1, KFR_ENABLE_IF(is_input_expression<E1>::value)>
-
 KFR_INTRIN expr_func<fn_round, E1> round(E1&& x)
 {
     return { fn_round(), std::forward<E1>(x) };
@@ -269,14 +278,12 @@ KFR_INTRIN expr_func<fn_round, E1> round(E1&& x)
 
 using fn_trunc = internal::in_round<>::fn_trunc;
 template <typename T1, KFR_ENABLE_IF(is_numeric<T1>::value)>
-
 KFR_INTRIN ftype<T1> trunc(const T1& x)
 {
     return internal::in_round<>::trunc(x);
 }
 
 template <typename E1, KFR_ENABLE_IF(is_input_expression<E1>::value)>
-
 KFR_INTRIN expr_func<fn_trunc, E1> trunc(E1&& x)
 {
     return { fn_trunc(), std::forward<E1>(x) };

@@ -17,21 +17,18 @@
 
 cmake_minimum_required(VERSION 3.0)
 
-add_compile_options(-fno-exceptions -fno-rtti -ftemplate-backtrace-limit=0)
-
-link_libraries(stdc++ pthread m)
+if (NOT MSVC)
+    add_compile_options(-fno-exceptions -fno-rtti -ftemplate-backtrace-limit=0 -march=native)
+    link_libraries(stdc++ pthread m)
+else ()
+    add_compile_options(/arch:AVX)
+endif ()
 
 include_directories(../include)
 
 add_executable(dft_test dft_test.cpp ${KFR_SRC})
 
-find_package(PythonInterp 2.7)
+enable_testing()
 
-if (PYTHONINTERP_FOUND)
-    enable_testing()
-
-    add_test(NAME test_dft
-            COMMAND ${PROJECT_BINARY_DIR}/tests/dft_test)
-else ()
-    message(WARNING "Install Python to run tests")
-endif ()
+add_test(NAME dft_test
+        COMMAND ${PROJECT_BINARY_DIR}/tests/dft_test)

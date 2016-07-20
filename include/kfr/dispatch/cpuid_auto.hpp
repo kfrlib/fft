@@ -22,30 +22,32 @@
  */
 #pragma once
 
-#include "base/vec.hpp"
-
-#include "base/abs.hpp"
-#include "base/asin_acos.hpp"
-#include "base/atan.hpp"
-#include "base/complex.hpp"
-#include "base/constants.hpp"
-#include "base/digitreverse.hpp"
-#include "base/gamma.hpp"
-#include "base/log_exp.hpp"
-#include "base/logical.hpp"
-#include "base/min_max.hpp"
-#include "base/operators.hpp"
-#include "base/read_write.hpp"
-#include "base/round.hpp"
-#include "base/saturation.hpp"
-#include "base/select.hpp"
-#include "base/shuffle.hpp"
-#include "base/sin_cos.hpp"
-#include "base/sqrt.hpp"
-#include "base/tan.hpp"
-#include "kfr/base/hyperbolic.hpp"
+#include "cpuid.hpp"
 
 namespace kfr
 {
-using namespace native;
+namespace internal
+{
+
+KFR_INLINE cpu_t& cpu_v()
+{
+    static cpu_t v1 = cpu_t::native;
+    return v1;
+}
+
+KFR_INLINE char init_cpu_v()
+{
+    cpu_v() = detect_cpu<0>();
+    return 0;
+}
+
+KFR_INLINE char init_dummyvar()
+{
+    static char dummy = init_cpu_v();
+    return dummy;
+}
+
+static char dummyvar = init_dummyvar();
+}
+KFR_INLINE cpu_t get_cpu() { return internal::cpu_v(); }
 }
